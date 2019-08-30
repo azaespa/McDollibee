@@ -1,16 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mcdollibee.PrimaryController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mcdollibee.PrimaryController">
    <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" text="Switch to Secondary View" onAction="#switchToSecondary"/>
+      <AnchorPane fx:id="homeSection" layoutY="11.0" prefHeight="463.0" prefWidth="800.0" style="-fx-background-color: ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="featuredMeal" fitHeight="337.0" fitWidth="328.0" layoutX="14.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="featuredMealPriceLbl" layoutX="345.0" layoutY="81.0" textFill="#ffc300">
+               <font>
+                  <Font name="Arial Black" size="96.0" />
+               </font>
+            </Label>
+            <Label fx:id="onlyLbl" layoutX="523.0" layoutY="85.0" textFill="#ffc300">
+               <font>
+                  <Font name="Arial Black" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="featuredMealNameLbl" contentDisplay="RIGHT" layoutX="353.0" layoutY="195.0" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="21.0" />
+               </font>
+            </Label>
+            <Button fx:id="hsAddToCart" layoutX="353.0" layoutY="422.0" mnemonicParsing="false" onAction="#addToCart_HS" prefHeight="45.0" prefWidth="236.0" style="-fx-background-color: ffc130;" text="ADD TO CART" textFill="#333333" visible="false">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <TextFlow layoutX="353.0" layoutY="240.0" prefHeight="166.0" prefWidth="236.0" textAlignment="JUSTIFY">
+               <children>
+                  <Text fx:id="featuredMealDescTxt" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="229.9814453125">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+            <ImageView fx:id="featuredCompanyImg" fitHeight="150.0" fitWidth="100.0" layoutX="42.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="profileSection" prefHeight="500.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="userPane" layoutY="18.0" prefHeight="472.0" prefWidth="618.0" visible="false">
+               <children>
+                  <TabPane layoutY="40.0" prefHeight="432.0" prefWidth="618.0" tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Profile">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="618.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Order History">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+                  <Label fx:id="fullName" layoutX="14.0" layoutY="8.0" text="PAUL AZANES">
+                     <font>
+                        <Font name="Asap Condensed Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="registerPane" prefHeight="490.0" prefWidth="618.0" visible="false">
+               <children>
+                  <Label layoutX="108.0" layoutY="95.0" text="McDollibee" textFill="#da153b">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="73.0" layoutY="68.0" text="Register" textFill="#ffc300">
+                     <font>
+                        <Font name="Arial Black" size="25.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="120.0" layoutY="394.0" mnemonicParsing="false" onAction="#setLoginPane" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: ffc130;" text="Log-in instead" />
+                  <Button layoutX="37.0" layoutY="394.0" mnemonicParsing="false" onAction="#registerForm" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: da153b;" text="Register" textFill="WHITE" />
+                  <TextField fx:id="usernameReg" layoutX="38.0" layoutY="149.0" prefHeight="25.0" prefWidth="188.0" promptText="mcdollisaya" />
+                  <PasswordField fx:id="passwordReg" layoutX="38.0" layoutY="191.0" prefHeight="25.0" prefWidth="188.0" promptText="********" />
+                  <TextField fx:id="firstNameReg" layoutX="38.0" layoutY="233.0" prefHeight="25.0" prefWidth="188.0" promptText="Juan" />
+                  <TextField fx:id="lastNameReg" layoutX="38.0" layoutY="275.0" prefHeight="25.0" prefWidth="188.0" promptText="Dela Cruz" />
+                  <TextField fx:id="addressReg" layoutX="38.0" layoutY="317.0" prefHeight="25.0" prefWidth="188.0" promptText="Brgy 123, 456 St., QC" />
+                  <TextField fx:id="phoneNumberReg" layoutX="38.0" layoutY="359.0" prefHeight="25.0" prefWidth="188.0" promptText="09123456789" />
+                  <Label layoutX="38.0" layoutY="132.0" text="Username" />
+                  <Label layoutX="38.0" layoutY="174.0" text="Password" />
+                  <Label layoutX="38.0" layoutY="216.0" text="First Name" />
+                  <Label layoutX="38.0" layoutY="258.0" text="Last Name" />
+                  <Label layoutX="38.0" layoutY="300.0" text="Address" />
+                  <Label layoutX="38.0" layoutY="342.0" text="Phone Number" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="loginPane" prefHeight="490.0" prefWidth="618.0">
+               <children>
+                  <TextField fx:id="username" layoutX="214.0" layoutY="179.0" prefHeight="38.0" prefWidth="188.0" promptText="Username" />
+                  <PasswordField fx:id="password" layoutX="214.0" layoutY="222.0" prefHeight="38.0" prefWidth="188.0" promptText="Password" />
+                  <Button layoutX="214.0" layoutY="264.0" mnemonicParsing="false" onAction="#loginForm" prefHeight="38.0" prefWidth="188.0" style="-fx-background-color: da153b;" text="LOGIN" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font></Button>
+                  <Button layoutX="214.0" layoutY="307.0" mnemonicParsing="false" onAction="#setRegisterPane" prefHeight="38.0" prefWidth="188.0" style="-fx-background-color: ffc130;" text="REGISTER" textFill="#333333">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font></Button>
+                  <ImageView fitHeight="50.0" fitWidth="150.0" layoutX="233.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="229.0" layoutY="138.0" text="McDollibee" textFill="#da153b">
+                     <font>
+                        <Font name="Arial Black" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="invalidAccountError" layoutX="213.0" layoutY="350.0" text="Error: Invalid username or password!" textFill="RED" visible="false" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="myCartSection" prefHeight="500.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="ordersPane" prefHeight="490.0" prefWidth="618.0" AnchorPane.bottomAnchor="0.0">
+               <children>
+                  <Button layoutX="445.0" layoutY="423.0" mnemonicParsing="false" onAction="#proceedCheckOut" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #ffc130;" text="CHECKOUT" textFill="#333333">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font></Button>
+                  <ListView fx:id="mealCheckOutLV" layoutX="15.0" layoutY="58.0" prefHeight="410.0" prefWidth="410.0" style="-fx-background-color: eeeeee;" />
+                  <Label layoutX="14.0" layoutY="18.0" text="My Cart" textFill="#ffc300">
+                     <font>
+                        <Font name="Arial Black" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emptyCartError" layoutX="454.0" layoutY="401.0" text="Error: Your cart is empty!" textFill="RED" visible="false" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="checkOutPane" prefHeight="490.0" prefWidth="618.0" visible="false" AnchorPane.bottomAnchor="0.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="18.0" text="My Cart" textFill="#ffc300">
+                     <font>
+                        <Font name="Arial Black" size="25.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#backBtn" prefHeight="15.0" prefWidth="59.0" style="-fx-background-color: DA153b;" text="Back" textFill="WHITE" />
+                  <Button fx:id="confirmOrder" layoutX="477.0" layoutY="412.0" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="28.0" prefWidth="81.0" style="-fx-background-color: DA153b;" text="Confirm" textFill="WHITE" />
+                  <TextField fx:id="firstNameOrder" layoutX="61.0" layoutY="164.0" prefHeight="25.0" prefWidth="225.0" promptText="Juan" />
+                  <TextField fx:id="lastNameOrder" layoutX="61.0" layoutY="209.0" prefHeight="25.0" prefWidth="225.0" promptText="Dela Cruz" />
+                  <TextField fx:id="addressOrder" layoutX="333.0" layoutY="164.0" prefHeight="25.0" prefWidth="225.0" promptText="Brgy 123, 456 St., Qc" />
+                  <TextField fx:id="phoneNumOrder" layoutX="333.0" layoutY="209.0" prefHeight="25.0" prefWidth="225.0" promptText="09123456789" />
+                  <TextArea fx:id="noteOrder" layoutX="61.0" layoutY="258.0" prefHeight="143.0" prefWidth="497.0" promptText="Sa may tabi ng simbahan" />
+                  <Label layoutX="61.0" layoutY="144.0" text="First Name" />
+                  <Label layoutX="61.0" layoutY="191.0" text="Last Name" />
+                  <Label layoutX="333.0" layoutY="144.0" text="Address" />
+                  <Label layoutX="333.0" layoutY="191.0" text="Phone Number" />
+                  <Label layoutX="61.0" layoutY="239.0" text="Note" />
+                  <Text fill="RED" layoutX="119.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="119.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="376.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="414.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Label fx:id="emptyCartError1" layoutX="61.0" layoutY="124.0" text="Error: Your cart is empty!" textFill="RED" visible="false" />
+                  <Label fx:id="cartRedStarsError" layoutX="61.0" layoutY="124.0" text="Please fill up all the fields that has red stars (*)" textFill="RED" visible="false" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="mealsSection" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="mealCompanyImg" fitHeight="150.0" fitWidth="100.0" layoutX="490.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true" />
+            <ListView fx:id="mealListView" layoutX="326.0" layoutY="35.0" onMouseClicked="#pickMealsInList" prefHeight="382.0" prefWidth="277.0" />
+            <ImageView fx:id="imgViewMeal" fitHeight="300.0" fitWidth="300.0" layoutX="14.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="mealPriceLbl" layoutX="25.0" layoutY="335.0" textFill="#ffc300">
+               <font>
+                  <Font name="Arial Black" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="mealNameLbl" layoutX="25.0" layoutY="379.0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button layoutX="326.0" layoutY="431.0" mnemonicParsing="false" onAction="#addToCart_MS" prefHeight="51.0" prefWidth="149.0" style="-fx-background-color: ffc130;" text="ADD TO CART" textFill="#333333">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <TextFlow layoutX="25.0" layoutY="413.0" prefHeight="63.0" prefWidth="277.0">
+               <children>
+                  <Text fx:id="mealDescTxt" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+            <Label layoutX="14.0" layoutY="28.0" text="Meals" textFill="#ffc300">
+               <font>
+                  <Font name="Arial Black" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="618.0" layoutY="20.0" prefHeight="470.0" prefWidth="188.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="myCartBtn" layoutY="382.0" mnemonicParsing="false" onAction="#setMyCartSection" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: da153b;" text="MY CART" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <Button fx:id="mealsBtn" layoutY="424.0" mnemonicParsing="false" onAction="#setMealsSection" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: DA153B;" text="MEALS" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <Button fx:id="profileBtn" layoutY="337.0" mnemonicParsing="false" onAction="#setProfileSection" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: da153b;" text="PROFILE" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <Button fx:id="homeBtn" layoutY="292.0" mnemonicParsing="false" onAction="#setHomeSection" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: DA153b;" text="HOME" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <ListView fx:id="addTCListView" layoutY="40.0" prefHeight="225.0" prefWidth="200.0" style="-fx-background-color: eeeeee;" AnchorPane.bottomAnchor="207.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+            <Label layoutX="4.0" layoutY="13.0" text="Your Cart">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="totalLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="270.0" text="Total: P0" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font></Label>
+            <MenuButton fx:id="removeOrder" layoutX="104.0" layoutY="10.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="92.0" text="Remove Order" AnchorPane.rightAnchor="4.0">
+               <items>
+                  <MenuItem fx:id="removeSelected" mnemonicParsing="false" onAction="#removeSelected" text="Remove selected" />
+                  <MenuItem fx:id="removeAll" mnemonicParsing="false" onAction="#removeAll" text="Remove all" />
+               </items>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="9.0" />
+               </font>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="28.0" prefWidth="800.0" style="-fx-background-color: DA153B;" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="closeButton" graphicTextGap="3.0" layoutX="774.0" layoutY="1.0" mnemonicParsing="false" onAction="#closeStage" style="-fx-background-color: DA153b;" text="X" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="11.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+      <Button fx:id="primaryButton" layoutX="340.0" layoutY="238.0" onAction="#switchToSecondary" text="Switch to Secondary View" visible="false" />
+      <Label text="Primary View" visible="false" />
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</AnchorPane>
