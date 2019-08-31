@@ -1,0 +1,3 @@
+Main-Class: com.mcdollibee.App
+Class-Path: . sqlite-jdbc-3.28.0.jar
+
