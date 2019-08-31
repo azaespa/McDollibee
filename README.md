@@ -1,5 +1,5 @@
 # McDollibee
 Desktop Food Delivery Application
 
-[McDollibee.zip](https://github.com/pjazanes/McDollibee/files/3562622/McDollibee.zip)
+[McDollibee](https://drive.google.com/file/d/1KHasfjZxiXtOvzwmJAQjDsAe609zFenw/view?usp=sharing)
 
