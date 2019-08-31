@@ -7,7 +7,7 @@ A Desktop Application where you can order a meal from McDonalds and Jollibee. Yo
 * Build the project with Maven
 
 # More about the project
-You can download executable version [here.](https://drive.google.com/file/d/1KHasfjZxiXtOvzwmJAQjDsAe609zFenw/view?usp=sharing) if you are interested. 
+You can download the executable version [here](https://drive.google.com/file/d/1KHasfjZxiXtOvzwmJAQjDsAe609zFenw/view?usp=sharing)
 
 **Home Section** features a random meal everytime you visit it.
 ![image](https://user-images.githubusercontent.com/53474503/64067275-c7a24680-cc58-11e9-96ec-2753d9865fb0.png)
