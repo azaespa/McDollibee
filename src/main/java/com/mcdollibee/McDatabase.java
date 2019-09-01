@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -25,9 +26,13 @@ class McDatabase {
     //Profile Section
     private int id;
     private int phoneNumber;
+    private int totalOrderedPrice;
     private String firstName;
     private String lastName;
     private String address;
+    private List<String> orderHistoryList = new ArrayList<>();
+    private List<String> dateOrderedList = new ArrayList<>();
+
 
     //My Cart Section
     private Image mealImage;
@@ -42,7 +47,8 @@ class McDatabase {
     //Database Connection
     McDatabase(){
         try{
-            con = DriverManager.getConnection("jdbc:sqlite:src\\main\\resources\\db\\mcdatabase.db");
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:db\\mcdatabase.db");
             System.out.println("Connected Successfully!");
         }catch (Exception e){
             System.out.println("Connection Failed!" + e);
@@ -159,12 +165,62 @@ class McDatabase {
             System.out.println("Error 407 " + e);
         }
     }
+    void setOrderHistory(int userId, String dateOrdered){
+        try{
+            this.pstmt = con.prepareStatement("SELECT meal_order, total_price FROM orders " +
+                    "WHERE user_id="+userId+" AND date_ordered='"+dateOrdered+"'");
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                String mealsOrdered = rs.getString("meal_order").replace("[","").replace("]","");
+                List<String> temp = new ArrayList<>(Arrays.asList(mealsOrdered.split(",", -1)));
+                for(String i : temp){
+                    orderHistoryList.add(i.trim());
+                }
+                totalOrderedPrice = rs.getInt("total_price");
+            }
+            rs.close();
+            disconnect();
+        } catch (Exception e){
+            System.out.println("Error 418? "+ e);
+        }
+    }
+    void setOrderHistoryDates(int userId){
+        try{
+            this.pstmt = con.prepareStatement("SELECT date_ordered FROM orders WHERE user_id="+userId);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                dateOrderedList.add(rs.getString("date_ordered"));
+            }
+            rs.close();
+            disconnect();
+        }catch (Exception e){
+            System.out.println("Error 419 "+ e);
+        }
+    }
+    void setUserInfo(int userId){
+        try{
+            this.pstmt = con.prepareStatement("SELECT first_name, last_name, address, phone_number" +
+                    " FROM user WHERE id="+userId);
+            ResultSet rs = pstmt.executeQuery();
+            this.firstName = rs.getString("first_name");
+            this.lastName = rs.getString("last_name");
+            this.address = rs.getString("address");
+            this.phoneNumber = rs.getInt("phone_number");
+            rs.close();
+            disconnect();
+        }catch (Exception e){
+            System.out.println("Error 420 " + e);
+        }
+    }
     int getId(){ return this.id; }
     int getPhoneNumber(){ return this.phoneNumber; }
+    int getTotalOrderedPrice() { return this.totalOrderedPrice; }
     String getFirstName(){ return this.firstName; }
     String getLastName(){ return this.lastName; }
     String getAddress(){ return this.address; }
     String getFullName() { return this.firstName + " " + this.lastName; }
+    List<String> getOrderHistory() { return this.orderHistoryList; }
+    List<String> getDateOrderedList() { return this.dateOrderedList; }
 
     //My Cart Section
     Image imgCheckOut(String meal_name){
@@ -188,10 +244,11 @@ class McDatabase {
                    int phoneNum,
                    String note,
                    String mealOrder,
-                   int totalPrice){
+                   int totalPrice,
+                   String dateOrdered){
         try{
             this.pstmt = con.prepareStatement("INSERT INTO orders (user_id,first_name,last_name,address,phone_number,note," +
-                    "meal_order,total_price) VALUES (?,?,?,?,?,?,?,?)");
+                    "meal_order,total_price,date_ordered) VALUES (?,?,?,?,?,?,?,?,?)");
             pstmt.setInt(1, userId);
             pstmt.setString(2, firstName);
             pstmt.setString(3, lastName);
@@ -200,6 +257,7 @@ class McDatabase {
             pstmt.setString(6, note);
             pstmt.setString(7, mealOrder);
             pstmt.setInt(8, totalPrice);
+            pstmt.setString(9, dateOrdered);
             pstmt.executeUpdate();
             disconnect();
         }catch (Exception e){

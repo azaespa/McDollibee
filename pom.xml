@@ -47,14 +47,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
                     <release>11</release>
@@ -87,6 +79,27 @@
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.jsign</groupId>
+                <artifactId>jsign-maven-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <file>McDollibee.exe</file>
+                            <name>McDollibee</name>
+                            <url>http://www.github.com/pjazanes</url>
+                            <keystore>keystore.jks</keystore>
+                            <alias>my_certificate_alias</alias>
+                            <storepass>123456</storepass>
                         </configuration>
                     </execution>
                 </executions>
