@@ -2,6 +2,8 @@ package com.mcdollibee;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javafx.concurrent.Service;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +35,10 @@ public class PrimaryController implements Initializable {
     //Profile Section
     @FXML private Label invalidAccountError;
     @FXML private Label fullName;
+    @FXML private Label totalPriceLbl;
+    @FXML private Label fullNameInfo;
+    @FXML private Label addressInfo;
+    @FXML private Label phoneNumberInfo;
     @FXML private TextField username;
     @FXML private TextField usernameReg;
     @FXML private TextField firstNameReg;
@@ -43,12 +50,15 @@ public class PrimaryController implements Initializable {
     @FXML private AnchorPane userPane;
     @FXML private AnchorPane loginPane;
     @FXML private AnchorPane registerPane;
+    @FXML private ComboBox<String> dateOrderedCombo;
+    @FXML private ListView<String> orderHistoryListView;
     private Boolean isLoggedIn = false;
     private int userId;
     private int phoneNumber;
     private String firstName;
     private String lastName;
     private String address;
+    private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     //My Cart Section
     @FXML private ListView<String> mealCheckOutLV;
@@ -119,6 +129,10 @@ public class PrimaryController implements Initializable {
     public void setProfileSection(ActionEvent event){
         Profile profile = new Profile(homeSection,profileSection,myCartSection,mealsSection,invalidAccountError);
         profile.profileBtnAppearance(homeBtn,profileBtn,myCartBtn,mealsBtn);
+        if(isLoggedIn){
+            Profile reload = new Profile();
+            reload.setOrderHistoryPane(userId,dateOrderedCombo);
+        }
     }
     public void setMyCartSection(ActionEvent event){
         MyCart myCart = new MyCart(homeSection,
@@ -235,6 +249,9 @@ public class PrimaryController implements Initializable {
             public void handle(WorkerStateEvent workerStateEvent) {
                 userPane.setVisible(true);
                 loginPane.setVisible(false);
+                Profile profile = new Profile();
+                profile.setOrderHistoryPane(userId,dateOrderedCombo);
+                profile.setUserInfoPane(userId, fullNameInfo, addressInfo, phoneNumberInfo);
                 fullName.textProperty().unbind();
                 isLoggedIn = true;
                 if(fromCart){
@@ -305,6 +322,34 @@ public class PrimaryController implements Initializable {
         loginPane.setVisible(true);
         registerPane.setVisible(false);
     }
+    public void getOrderHistory(ActionEvent event){
+        totalPriceLbl.setPrefWidth(170);
+        totalPriceLbl.setAlignment(Pos.CENTER_LEFT);
+        Service<List<String>> backgroundThread = new Service<>() {
+            @Override
+            protected Task<List<String>> createTask() {
+                return new Task<>() {
+                    @Override
+                    protected List<String> call() throws Exception {
+                        McDatabase sql = new McDatabase();
+                        sql.setOrderHistory(userId, dateOrderedCombo.getValue());
+                        updateMessage("₱" + sql.getTotalOrderedPrice());
+                        return sql.getOrderHistory();
+                    }
+                };
+            }
+        };
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent workerStateEvent) {
+                orderHistoryListView.getItems().clear();
+                orderHistoryListView.getItems().addAll(backgroundThread.getValue());
+                totalLbl.textProperty().unbind();
+            }
+        });
+        totalPriceLbl.textProperty().bind(backgroundThread.messageProperty());
+        backgroundThread.restart();
+    }
 
     //My Cart Section
     public void proceedCheckOut(ActionEvent event){
@@ -344,6 +389,7 @@ public class PrimaryController implements Initializable {
                 return new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
+                        Date date = new Date();
                         McDatabase sql = new McDatabase();
                         mealsOrdered.addAll(addTCListView.getItems());
                         if(firstNameOrder.getText().isEmpty() || lastNameOrder.getText().isEmpty() ||
@@ -353,11 +399,11 @@ public class PrimaryController implements Initializable {
                         } else {
                             if(isLoggedIn){
                                 sql.userOrder(userId,firstName,lastName,address,phoneNumber,noteOrder.getText(),
-                                        mealsOrdered.toString(),total);
+                                        mealsOrdered.toString(),total,sdf.format(date));
                             } else {
                                 sql.userOrder(-1, firstNameOrder.getText(),lastNameOrder.getText(),
                                         addressOrder.getText(), Integer.parseInt(phoneNumOrder.getText()),
-                                        noteOrder.getText(),mealsOrdered.toString(),total);
+                                        noteOrder.getText(),mealsOrdered.toString(),total,sdf.format(date));
                             }
                         }
                         return null;
