@@ -6,8 +6,10 @@ A Desktop Application where you can order a meal from McDonalds and Jollibee. Yo
 * Fetch & display information and images from SQL database 
 * Build the project with Maven and JavaFX
 
+# Executable version
+You can download it [here](https://drive.google.com/open?id=1-vwCOxbUz4P8oZD-JRBcq9Cip2a8Oiq1)
+
 # More about the project
-You can download the executable version [here](https://drive.google.com/file/d/1KHasfjZxiXtOvzwmJAQjDsAe609zFenw/view?usp=sharing)
 
 **Home Section** features a random meal everytime you visit it.
 
