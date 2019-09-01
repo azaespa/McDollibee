@@ -3,7 +3,7 @@ A Desktop Application where you can order a meal from McDonalds and Jollibee. Yo
 
 # What I learned
 * Multi-threading/Concurrency
-* Fetch & display information and images from SQL database 
+* Fetch, display & insert information and images from SQL database 
 * Build the project with Maven and JavaFX
 
 # Executable version
