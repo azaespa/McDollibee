@@ -5,8 +5,8 @@ A Desktop Application where you can order a meal from McDonalds and Jollibee. Yo
 * Multi-threading/Concurrency
 * Build the project with Maven and JavaFX
 
-# Executable version
-You can download it [here](https://drive.google.com/open?id=1-vwCOxbUz4P8oZD-JRBcq9Cip2a8Oiq1)
+# Executable jar version
+You can download it [here](https://drive.google.com/open?id=1yrTwAABaNDxNjaGGitRtlF_CZK3JDxY5)
 
 # More about the project
 
