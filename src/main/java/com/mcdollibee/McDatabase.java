@@ -48,7 +48,7 @@ class McDatabase {
     McDatabase(){
         try{
             Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:db\\mcdatabase.db");
+            con = DriverManager.getConnection("jdbc:sqlite:src\\main\\resources\\db\\mcdatabase.db");
             System.out.println("Connected Successfully!");
         }catch (Exception e){
             System.out.println("Connection Failed!" + e);

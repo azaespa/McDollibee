@@ -127,8 +127,11 @@ public class PrimaryController implements Initializable {
                 mealsBtn);
     }
     public void setProfileSection(ActionEvent event){
-        Profile profile = new Profile(homeSection,profileSection,myCartSection,mealsSection,invalidAccountError);
-        profile.profileBtnAppearance(homeBtn,profileBtn,myCartBtn,mealsBtn);
+        Stages profile = new Profile(invalidAccountError);
+        profile.setVisible(false, true, false, false);
+        profile.setStage(homeSection,profileSection,myCartSection,mealsSection);
+        profile.setBtn(homeBtn,profileBtn,myCartBtn,mealsBtn);
+        //profile.profileBtnAppearance(homeBtn,profileBtn,myCartBtn,mealsBtn);
         if(isLoggedIn){
             Profile reload = new Profile();
             reload.setOrderHistoryPane(userId,dateOrderedCombo);

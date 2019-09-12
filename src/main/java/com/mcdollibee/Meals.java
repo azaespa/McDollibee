@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-class Meals {
+class Meals extends Stages{
     private Image mealCompany;
     private String mealDescription;
     private ObservableList<String> mealObsView;
