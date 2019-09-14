@@ -65,13 +65,14 @@ class McDatabase {
     //Home Section
     void setRandomFeaturedMeal(){
         try{
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS rowcount FROM meals");
+            this.pstmt = con.prepareStatement("SELECT COUNT(*) AS rowcount FROM meals");
+            ResultSet rs = pstmt.executeQuery();
             rs.next();
             int count = rs.getInt("rowcount");
             rs.close();
             int rand = 1 + random.nextInt(count);
             setFeaturedMeal(rand);
+            con.close();
         }catch (Exception e){
             System.out.println("Error 416 " + e);
         }

@@ -110,10 +110,9 @@ public class PrimaryController implements Initializable {
 
     //Navigation Bar
     public void setHomeSection(ActionEvent event){
-        Home home = new Home(homeSection,
-                profileSection,
-                myCartSection,
-                mealsSection);
+        Stages home = new Home();
+        home.setVisible(true, false, false, false);
+        home.setStage(homeSection,profileSection,myCartSection,mealsSection);
         home.loadFeaturedMeal(featuredCompanyImg,
                 featuredMeal,
                 featuredMealDescTxt,
@@ -121,34 +120,23 @@ public class PrimaryController implements Initializable {
                 featuredMealPriceLbl,
                 onlyLbl,
                 hsAddToCart);
-        home.homeBtnAppearance(homeBtn,
-                profileBtn,
-                myCartBtn,
-                mealsBtn);
+        home.setBtn(homeBtn, profileBtn, myCartBtn, mealsBtn);
     }
     public void setProfileSection(ActionEvent event){
         Stages profile = new Profile(invalidAccountError);
         profile.setVisible(false, true, false, false);
         profile.setStage(homeSection,profileSection,myCartSection,mealsSection);
         profile.setBtn(homeBtn,profileBtn,myCartBtn,mealsBtn);
-        //profile.profileBtnAppearance(homeBtn,profileBtn,myCartBtn,mealsBtn);
         if(isLoggedIn){
             Profile reload = new Profile();
             reload.setOrderHistoryPane(userId,dateOrderedCombo);
         }
     }
     public void setMyCartSection(ActionEvent event){
-        MyCart myCart = new MyCart(homeSection,
-                profileSection,
-                myCartSection,
-                mealsSection,
-                emptyCartError,
-                emptyCartError1,
-                cartRedStarsError);
-        myCart.cartBtnAppearance(homeBtn,
-                profileBtn,
-                myCartBtn,
-                mealsBtn);
+        Stages myCart = new MyCart(emptyCartError, emptyCartError1, cartRedStarsError);
+        myCart.setVisible(false, false, true, false);
+        myCart.setStage(homeSection, profileSection, myCartSection, mealsSection);
+        myCart.setBtn(homeBtn, profileBtn, myCartBtn, mealsBtn);
         myCart.setOrdersToCart(addTCListView,mealCheckOutLV);
         if(isLoggedIn){
             firstNameOrder.setText(firstName);
@@ -158,20 +146,16 @@ public class PrimaryController implements Initializable {
         }
     }
     public void setMealsSection(ActionEvent event){
-        Meals meals = new Meals(homeSection,
-                profileSection,
-                myCartSection,
-                mealsSection);
+        Stages meals = new Meals();
+        meals.setVisible(false, false, false, true);
+        meals.setStage(homeSection,profileSection,myCartSection,mealsSection);
+        meals.setBtn(homeBtn,profileBtn,myCartBtn,mealsBtn);
         meals.setMealsToListView(mealListView,
                 mealNameLbl,
                 mealPriceLbl,
                 mealDescTxt,
                 imgViewMeal,
                 mealCompanyImg);
-        meals.mealsBtnAppearance(homeBtn,
-                profileBtn,
-                myCartBtn,
-                mealsBtn);
     }
     public void removeSelected(ActionEvent event){
         backgroundThread = new Service<Void>() {

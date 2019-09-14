@@ -7,40 +7,27 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-class Meals extends Stages{
+public class Meals extends Stages{
     private Image mealCompany;
     private String mealDescription;
     private ObservableList<String> mealObsView;
 
-    Meals(AnchorPane homeSection,
-          AnchorPane profileSection,
-          AnchorPane myCartSection,
-          AnchorPane mealsSection) {
-        homeSection.setVisible(false);
-        profileSection.setVisible(false);
-        myCartSection.setVisible(false);
-        mealsSection.setVisible(true);
-    }
-
     Meals(){
 
     }
-
-    void setMealsToListView(ListView<String> mealListView,
-                            Label mealNameLbl,
-                            Label mealPriceLbl,
-                            Text mealDescTxt,
-                            ImageView imgViewMeal,
-                            ImageView mealCompanyImg) {
+    @Override
+    public void setMealsToListView(ListView<String> mealListView,
+                                   Label mealNameLbl,
+                                   Label mealPriceLbl,
+                                   Text mealDescTxt,
+                                   ImageView imgViewMeal,
+                                   ImageView mealCompanyImg) {
         Service<Void> backgroundThread = new Service<>() {
             @Override
             protected Task<Void> createTask() {
@@ -77,7 +64,7 @@ class Meals extends Stages{
         backgroundThread.restart();
     }
 
-    void selectedMealInfo(ListView<String> mealListView,
+    public void selectedMealInfo(ListView<String> mealListView,
                                   Label mealNameLbl,
                                   Label mealPriceLbl,
                                   Text mealDescTxt,
@@ -120,14 +107,4 @@ class Meals extends Stages{
         backgroundThreadImg.restart();
     }
 
-    void mealsBtnAppearance(Button homeBtn, Button profileBtn, Button myCartBtn, Button mealsBtn){
-        homeBtn.setTextFill(Paint.valueOf("#FFFFFF"));
-        homeBtn.setStyle("-fx-background-color: #DA153B");
-        profileBtn.setTextFill(Paint.valueOf("#FFFFFF"));
-        profileBtn.setStyle("-fx-background-color: #DA153B");
-        myCartBtn.setTextFill(Paint.valueOf("#FFFFFF"));
-        myCartBtn.setStyle("-fx-background-color: #DA153B");
-        mealsBtn.setTextFill(Paint.valueOf("#DA153B"));
-        mealsBtn.setStyle("-fx-background-color: #FFFFFF");
-    }
 }
