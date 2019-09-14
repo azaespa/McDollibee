@@ -1,10 +1,14 @@
 package com.mcdollibee;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
-public class Stages {
+public class Stages{
     private boolean home;
     private boolean profile;
     private boolean cart;
@@ -58,4 +62,12 @@ public class Stages {
         }
         return color;
     }
+    public void loadFeaturedMeal(ImageView featuredCompanyImg, ImageView featuredMeal, Text featuredMealDescTxt,
+                          Label featuredMealNameLbl, Label featuredMealPriceLbl, Label onlyLbl,
+                          Button hsAddToCart){}
+    public void setMealsToListView(ListView<String> mealListView,
+                                   Label mealNameLbl, Label mealPriceLbl,
+                                   Text mealDescTxt, ImageView imgViewMeal,
+                                   ImageView mealCompanyImg){ }
+    public void setOrdersToCart(ListView<String> addTCListView, ListView<String> mealCheckOutLV){}
 }
